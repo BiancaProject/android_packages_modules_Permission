@@ -26,6 +26,7 @@ import static android.Manifest.permission_group.MICROPHONE;
 import static android.Manifest.permission_group.NEARBY_DEVICES;
 import static android.Manifest.permission_group.NETWORK;
 import static android.Manifest.permission_group.NOTIFICATIONS;
+import static android.Manifest.permission_group.OTHER_SENSORS;
 import static android.Manifest.permission_group.PHONE;
 import static android.Manifest.permission_group.READ_MEDIA_AURAL;
 import static android.Manifest.permission_group.READ_MEDIA_VISUAL;
@@ -343,6 +344,7 @@ public final class Utils {
         }
 
         PLATFORM_PERMISSIONS.put(Manifest.permission.INTERNET, NETWORK);
+        PLATFORM_PERMISSIONS.put(Manifest.permission.OTHER_SENSORS, OTHER_SENSORS);
 
         PLATFORM_PERMISSION_GROUPS = new ArrayMap<>();
         int numPlatformPermissions = PLATFORM_PERMISSIONS.size();
