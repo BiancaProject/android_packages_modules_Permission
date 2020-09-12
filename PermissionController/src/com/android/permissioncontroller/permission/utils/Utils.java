@@ -214,6 +214,9 @@ public final class Utils {
      */
     public static final long ONE_TIME_PERMISSIONS_KILLED_DELAY_MILLIS = 5 * 1000;
 
+    /** Mapping permission -> group for all special runtime permissions */
+    private static final ArrayMap<String, String> SPECIAL_RUNTIME_PERMISSIONS;
+
     /** Mapping permission -> group for all dangerous platform permissions */
     private static final ArrayMap<String, String> PLATFORM_PERMISSIONS;
 
@@ -345,6 +348,10 @@ public final class Utils {
 
         PLATFORM_PERMISSIONS.put(Manifest.permission.INTERNET, NETWORK);
         PLATFORM_PERMISSIONS.put(Manifest.permission.OTHER_SENSORS, OTHER_SENSORS);
+
+        SPECIAL_RUNTIME_PERMISSIONS = new ArrayMap<>();
+        SPECIAL_RUNTIME_PERMISSIONS.put(Manifest.permission.INTERNET, NETWORK);
+        SPECIAL_RUNTIME_PERMISSIONS.put(Manifest.permission.OTHER_SENSORS, OTHER_SENSORS);
 
         PLATFORM_PERMISSION_GROUPS = new ArrayMap<>();
         int numPlatformPermissions = PLATFORM_PERMISSIONS.size();
@@ -810,6 +817,17 @@ public final class Utils {
      */
     public static boolean isRuntimePlatformPermission(@NonNull String permission) {
         return PLATFORM_PERMISSIONS.containsKey(permission);
+    }
+
+    /**
+     * Is the permission a special runtime permission?
+     * These are treated as a runtime permission even for legacy apps. They
+     * need to be granted by default for all apps to maintain compatibility.
+     *
+     * @return whether the permission is a special runtime permission.
+     */
+    public static boolean isSpecialRuntimePermission(@NonNull String permission) {
+        return SPECIAL_RUNTIME_PERMISSIONS.containsKey(permission);
     }
 
     /**

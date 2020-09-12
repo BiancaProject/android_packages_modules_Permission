@@ -36,7 +36,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.PermissionGroupInfo;
 import android.content.pm.PermissionInfo;
-import android.Manifest;
 import android.os.Binder;
 import android.os.Build;
 import android.os.UserHandle;
@@ -926,7 +925,7 @@ public final class AppPermissionGroup implements Comparable<AppPermissionGroup> 
 
             boolean wasGranted = permission.isGrantedIncludingAppOp();
 
-            if (mAppSupportsRuntimePermissions || Manifest.permission.INTERNET.equals(permission.getName()) || Manifest.permission.OTHER_SENSORS.equals(permission.getName())) {
+            if (mAppSupportsRuntimePermissions || Utils.isSpecialRuntimePermission(permission.getName())) {
                 // Do not touch permissions fixed by the system.
                 if (permission.isSystemFixed()) {
                     wasAllGranted = false;
@@ -1114,7 +1113,7 @@ public final class AppPermissionGroup implements Comparable<AppPermissionGroup> 
                 break;
             }
 
-            if (mAppSupportsRuntimePermissions || Manifest.permission.INTERNET.equals(permission.getName()) || Manifest.permission.OTHER_SENSORS.equals(permission.getName())) {
+            if (mAppSupportsRuntimePermissions || Utils.isSpecialRuntimePermission(permission.getName())) {
                 // Revoke the permission if needed.
                 if (permission.isGranted()) {
                     permission.setGranted(false);
